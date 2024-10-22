@@ -135,6 +135,21 @@ public:
         file.close();
     }
 
+    // creat tetemlate funcion to search a book
+    template <typename T>
+    void searchBook(T title) {
+        std::cout << "Manager search book" << std::endl;
+        //oper books.txt file and search for a book
+        std::ifstream file("books.txt");
+        std::string line;
+        while (std::getline(file, line)) {
+            if (line.find(title) != std::string::npos) {
+                std::cout << line << std::endl;
+            }
+        }
+        file.close();
+    }
+
 
     // Actions
     void checkout(std::string typology, std::string title, User user) {
@@ -185,6 +200,7 @@ int main() {
     //create while true dropdown menu
     while (true)
     {
+        std::cout << "0. Exit" << std::endl;
         std::cout << "1. Get users" << std::endl;
         std::cout << "2. Get books" << std::endl;
         std::cout << "3. Get magazines" << std::endl;
@@ -194,7 +210,7 @@ int main() {
         std::cout << "7. Add book" << std::endl;
         std::cout << "8. Add magazine" << std::endl;
         std::cout << "9. Add user" << std::endl;
-        std::cout << "10. Exit" << std::endl;
+        std::cout << "10. search Book" << std::endl;
         std::cout << "Choose an option: ";
         int option;
         std::cin >> option;
@@ -285,7 +301,17 @@ int main() {
             std::cin >> email;
             User user(name, email);
         }
+        // search book
         else if (option == 10)
+        {
+            std::string title;
+            std::cout << "Enter title: ";
+            std::cin.ignore(); // Clear buffer before reading title
+            std::getline(std::cin, title); // Read full title, including spaces
+            Manager manager;
+            manager.searchBook(title);
+        }
+        else if (option == 0) // Exit
         {
             break;
         }
